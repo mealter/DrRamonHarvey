@@ -1,0 +1,125 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@theme inline {
+  --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-eb-garamond), 'Iowan Old Style', Georgia, serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-rule: var(--rule);
+
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 3px;
+}
+
+:root {
+  color-scheme: light;
+  /* Ivory / parchment */
+  --background: oklch(0.968 0.014 85);
+  --foreground: oklch(0.24 0.008 60);
+  --card: oklch(0.948 0.02 82);
+  --card-foreground: oklch(0.24 0.008 60);
+  --popover: oklch(0.968 0.014 85);
+  --popover-foreground: oklch(0.24 0.008 60);
+  /* Muted burgundy / wine */
+  --primary: oklch(0.4 0.115 18);
+  --primary-foreground: oklch(0.968 0.014 85);
+  /* Restrained beige */
+  --secondary: oklch(0.915 0.026 80);
+  --secondary-foreground: oklch(0.24 0.008 60);
+  --muted: oklch(0.93 0.02 82);
+  --muted-foreground: oklch(0.47 0.015 60);
+  --accent: oklch(0.915 0.026 80);
+  --accent-foreground: oklch(0.4 0.115 18);
+  --destructive: oklch(0.5 0.17 27);
+  --border: oklch(0.84 0.022 75);
+  --rule: oklch(0.24 0.008 60 / 0.16);
+  --input: oklch(0.84 0.022 75);
+  --ring: oklch(0.4 0.115 18);
+  --radius: 2px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'kern', 'liga';
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: oklch(0.4 0.115 18 / 0.18);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* Faint laid-paper texture, kept nearly invisible on purpose */
+  .paper {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        oklch(0.24 0.008 60 / 0.018) 0px,
+        oklch(0.24 0.008 60 / 0.018) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+  }
+  .eyebrow {
+    @apply font-sans text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
